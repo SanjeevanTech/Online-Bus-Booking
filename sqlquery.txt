@@ -1,0 +1,33 @@
+DELIMITER $$
+
+CREATE EVENT delete_event
+ON SCHEDULE EVERY 1 DAY
+DO
+BEGIN
+    DELETE FROM ticket_delete WHERE date < NOW() - INTERVAL 7 DAY;
+END;
+$$
+
+DELIMITER ;
+
+
+DELIMITER //
+
+CREATE TRIGGER before_ticket_delete
+BEFORE DELETE ON ticket
+FOR EACH ROW
+BEGIN
+    INSERT INTO ticket_delete (scheduleID, Seat, Name, Phone, date, price, emailuser)
+    VALUES (OLD.scheduleID, OLD.Seat, OLD.Name, OLD.Phone, OLD.date, OLD.price, OLD.emailuser);
+END;
+
+//
+
+DELIMITER ;
+
+CREATE EVENT delete_old_schedules
+ON SCHEDULE EVERY 1 DAY -- Run the event once every day
+DO
+  DELETE FROM schedule
+  WHERE scheduleDate < CURDATE() - INTERVAL 7 DAY;
+

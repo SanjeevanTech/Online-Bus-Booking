@@ -1,0 +1,235 @@
+
+
+.trendbus{
+		color: #FFFFFF;
+		font-family: Arvo;
+	}
+	.img {
+		width: 200px;
+	    height: 100px;
+	}
+
+	
+	.delbtn{
+		padding-top:10px;
+		padding-bottom: 10px;
+		padding-left: 20px;
+		padding-right: 20px;
+		background-color: #BF0808;
+		color:White;
+		border-radius: 10px;
+		text-decoration: none;
+		font-size: 14px;
+		font-family: Arial;
+		}
+		.upbtn{
+			padding-top:10px;
+			padding-bottom: 10px;
+			padding-left: 20px;
+			padding-right: 20px;
+			background-color: #141850;
+			color:white;
+			border-radius: 10px;
+			font-size: 14px;
+			border:0px;
+			font-family: Arial;
+		 }
+		 @media (max-width: 640px) {
+          .modal {
+            position: relative;
+            width: 100%;
+          }
+        }
+	   .modal {
+		  display: none; /* Hidden by default */
+		  position: fixed; /* Stay in place */
+		  z-index: 1; /* Sit on top */
+		  padding-top: 20px; /* Location of the box */
+		  left: 0;
+		  top: 0;
+		  width: 100%; /* Full width */
+		  height: 100%; /* Full height */
+		  overflow: auto; /* Enable scroll if needed */
+		  background-color: rgb(0,0,0); /* Fallback color */
+		  background: rgba(0, 0, 0, 0.5);/* Black w/ opacity */
+		  transition: opacity 500ms ease-in-out;
+		    top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+		}	 
+		  /* Modal Content */
+		.modal-content {
+		  transform: translate(-50%, -50%) scale(0.75);
+		  background-color: #fefefe;
+		  margin: auto;
+		  padding: 30px;
+		  border: 1px solid #888;
+		  top: 50%;
+          left: 50%;
+          width: 60%;
+          padding: 30px;
+		  position: absolute;
+		  height:600px;
+		}
+		.close {
+			color: #aaaaaa;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+		}
+		.update {
+		  background-color: #04AA6D;
+		  color: white;
+		  padding: 14px 20px;
+		  margin: 8px 0;
+		  border: none;
+		  cursor: pointer;
+		  width: 100%;
+		  height:50px;
+		  border-radius:10px;
+		}
+
+		.update:hover {
+		  opacity: 0.8;
+		}
+		
+		/*#company{
+		    box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.5);
+		}*/
+		 .timetable{
+			  margin-left: 10%;
+			  margin-right: 10%;
+		  }
+		  input[type="search"] {
+                height: 30px;
+                border-radius: 10px;
+                font-size: 16px;
+                margin-bottom: 20px;
+            }
+		  .dataTables_length{
+			  display:none;
+		  }
+		  
+		  input[type=text], select {
+			width: 25%;
+			padding: 12px 20px;
+			border-radius: 4px;
+			box-sizing: border-box;
+			margin-right: 8px;
+		}
+		input[type=date], select {
+			width: 25%;
+			padding: 12px 10px;
+			border-radius: 4px;
+			box-sizing: border-box;
+		}
+		  input[type=email], select {
+			width: 25%;
+			padding: 12px 20px;
+			border-radius: 4px;
+			box-sizing: border-box;
+			margin-right: 8px;
+		}
+		input[type=number], select {
+			width: 25%;
+			padding: 12px 10px;
+			margin: 8px 0;
+			border-radius: 4px;
+			box-sizing: border-box;
+		}
+		.searchbtn{
+			background:#FFE42F;
+			color:Black;
+			font-size: 16px;
+			padding-top: 12px;
+			padding-bottom: 12px;
+			padding-left: 30px;
+			padding-right: 30px;
+			transition:0.3s;
+			margin-left: 5%;
+			border-radius: 10px;
+			border:0;
+			
+			  }
+		  .searchbtn:hover{
+			  background-color: #C1B200;
+		  }
+		  
+		  .ResetBtn{
+			
+			background:#FF0000;
+			color:White;
+			font-size: 16px;
+			padding-top: 12px;
+			padding-bottom: 12px;
+			padding-left: 30px;
+			padding-right: 30px;
+			transition:0.3s;
+			border-radius: 10px;
+			  border:0;
+			  }
+		  .ResetBtn:hover{
+			background:#B80003;
+			color:White;
+			  }
+		 .add{
+    			 padding-top:10px;
+    			padding-bottom: 10px;
+    			padding-left: 20px;
+    			padding-right: 20px; 
+    			background-color: #04AA6D;
+    		    color: white;
+    		  border: none;
+    		  border-radius:10px;
+			  }
+	    .add:hover {
+		  opacity: 0.8;
+		}
+		.addingform{
+		    font-size:16px;
+		}
+		.fitimg {				
+			background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("home1.png") center fixed no-repeat;
+			background-size:cover;
+	
+			}
+		
+			
+
+		#company_previous{
+		    color: white;
+			margin-left: 65px;
+			margin-right: 430px;
+		}
+		#company_next{
+		    color: white;
+			margin-left: 480px;
+			margin-right: 250px;
+		}
+		#company_info{
+		    margin-top:20px;
+		    color: white;
+		}
+		
+		#company_paginate{
+		     margin-top:20px;
+		     margin-bottom:20px;
+		}
+		.paginate_button{
+		    color: white;
+		    margin-top:20px;
+		    margin-left:230px;
+		    margin-right:150px;
+		}
+		label{
+		    height: 30px;
+	    border-radius: 10px;
+	    font-size:16px;
+	    margin-bottom:20px;
+	    color:white;
+		}
+		.dataTables_filter{
+		    width:80%;
+		}
+		
