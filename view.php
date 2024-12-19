@@ -2,66 +2,53 @@
   session_start();
   error_reporting(0);
   include("dbconnect.php");
-  if(!isset($_SESSION['Admin'])){
-     echo '<script type="text/javascript">alert("Please login first!!");window.location.assign("login.php");</script>';
-  }
-
-  $temp = $_GET['id'];
-  $id = base64_decode($temp);
-
-  // Non-NULL Initialization Vector for decryption
-  $decryption_iv = '1234567891011121';
-
-  // Store the decryption key
-  $decryption_key = "travel123";
-  $ciphering = "AES-128-CTR";
-
-  // Use OpenSSl Encryption method
-  $iv_length = openssl_cipher_iv_length($ciphering);
-  $options = 0;
-  // Use openssl_decrypt() function to decrypt the data
-  $decryption = openssl_decrypt($id, $ciphering, $decryption_key, $options, $decryption_iv);
-
-  $query = "SELECT * FROM `ticket` 
-          INNER JOIN `schedule` 
-          ON ticket.scheduleID = schedule.scheduleID 
-          WHERE ticket.emailuser = '$decryption' ";
+    if(!isset($_SESSION['Admin'])){
+         echo '<script type="text/javascript">alert("Please login first!!");window.location.assign("login.php");</script>';
+     }
 
 
+	$temp = $_GET['id'];
+    $id = base64_decode($temp);
+
+	// Non-NULL Initialization Vector for decryption
+	$decryption_iv = '1234567891011121';
+
+	// Store the decryption key
+	$decryption_key = "travel123";
+    $ciphering = "AES-128-CTR";
+
+	// Use OpenSSl Encryption method
+	$iv_length = openssl_cipher_iv_length($ciphering);
+	$options = 0;
+	// Use openssl_decrypt() function to decrypt the data
+   $decryption= openssl_decrypt ($id, $ciphering,$decryption_key, $options, $decryption_iv);
+    
+    $query = "SELECT * FROM `ticket` INNER JOIN `schedule` on ticket.scheduleID = schedule.scheduleID WHERE ticket.id= '$decryption'";
+	$result = $conn->query($query);
+    $ticket=array();
+    if ($result->num_rows >0) {
+		 while ($row = $result ->fetch_assoc()){ 
+				  $ticket['Email'] = $row["emailuser"];
+			      $ticket['Seat'] = $row["Seat"];
+			      $ticket['Name'] = $row["Name"];
+			      $ticket['Phone'] = $row["Phone"];
+            $ticket['scheduleFrom'] = $row["scheduleFrom"];
+			      $ticket['scheduleDestination'] = $row["scheduleDestination"];
+			      $ticket['scheduleDate'] = $row["scheduleDate"];
+			      $ticket['scheduleTime'] = $row["scheduleTime"];
+		   }
+	}
+   if($ticket['Email']==''||$id ==''){
+	     echo '<script type="text/javascript">window.location.assign("view.php");</script>';
+   }
 
 
-
-  $result = $conn->query($query);
-
-  // Initialize an empty array for storing tickets
-  $tickets = array();
-  if ($result->num_rows > 0) {
-      while ($row = $result->fetch_assoc()) {
-          // Store each ticket's information
-          $tickets[] = array(
-              'Email' => $row["emailuser"],
-              'Seat' => $row["Seat"],
-              'Name' => $row["Name"],
-              'Phone' => $row["Phone"],
-              'scheduleFrom' => $row["scheduleFrom"],
-              'scheduleDestination' => $row["scheduleDestination"],
-              'scheduleDate' => $row["scheduleDate"],
-              'scheduleTime' => $row["scheduleTime"]
-          );
-      }
-  }
-
-  if (empty($tickets)) {
-    echo '<script type="text/javascript">window.location.assign("view.php");</script>';
-  }
 ?>
 
 <html>
 <head>
-    <title>View Tickets</title>
-    <style type="text/css">
-       @import url('https://fonts.googleapis.com/css?family=Oswald');
-
+    <title>View Ticket</title>
+<style type="text/css">@import url('https://fonts.googleapis.com/css?family=Oswald');
 *
 {
   margin: 0;
@@ -76,13 +63,14 @@ body
   font-family: arial;
 }
 
+.fl-left{float: left}
+
+.fl-right{float: right}
+
 .container
 {
   width: 90%;
-  margin-right: auto;
-  margin-left: auto;
-  margin-top: 10px;
-  margin-bottom: 0;
+  margin: 100px auto
 }
 
 h1
@@ -94,16 +82,12 @@ h1
   margin-bottom: 30px
 }
 
-.row{
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px; /* Adds spacing between the cards */
-  justify-content: center;
-}
+.row{overflow: hidden}
 
 .card
 {
-  width: 48%;  /* Adjust width for responsiveness */
+  display: table-row;
+  width: 60%;
   background-color: #fff;
   color: #989898;
   margin-bottom: 10px;
@@ -111,7 +95,10 @@ h1
   text-transform: uppercase;
   border-radius: 4px;
   position: relative;
+ margin-left: 15%;
 }
+
+.card + .card{margin-left: 2%}
 
 .date
 {
@@ -149,7 +136,9 @@ h1
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%)
 }
 
 .date time span{display: block}
@@ -179,8 +168,12 @@ h1
 .card-cont h3
 {
   color: #3C3C3C;
-  font-size: 130%;
-  text-decoration: none;
+  font-size: 130%
+}
+
+.row:last-child .card:last-of-type .card-cont h3
+{
+  text-decoration: line-through
 }
 
 .card-cont > div
@@ -218,7 +211,7 @@ h1
   text-decoration: none;
   width: 80px;
   height: 30px;
-  background-color: #037FDD;
+  background-color: #D8DDE0;
   color: #fff;
   text-align: center;
   line-height: 30px;
@@ -227,38 +220,63 @@ h1
   right: 10px;
   bottom: 10px
 }
+.
+.row:last-child .card:first-child .card-cont a
+{
+  background-color: #037FDD
+}
+
+.row:last-child .card:last-child .card-cont a
+{
+  background-color: #F8504C
+}
 
 @media screen and (max-width: 860px)
 {
   .card
   {
     display: block;
+    float: none;
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 10px
   }
-
+  
+  .card + .card{margin-left: 0}
+  
   .card-cont .even-date,
   .card-cont .even-info
   {
-    font-size: 75%;
+    font-size: 75%
   }
 }
-
-@media print {
+.nav a{
+		padding: 10px;
+		font-size: 18px;
+		color:white;
+	}
+	.nav a:hover{
+		background:#E88687;
+		box-shadow: 0px 1px 10px;
+		color:white;
+		transition:0.3s;
+		border-radius: 10px;
+	}
+	@media print {
   .no-print {
     visibility: hidden;
   }
 }
-
-.btn {
+	.btn {
   appearance: none;
-  -webkit-appearance: none;
+    -webkit-appearance: none;
   font-family: sans-serif;
   cursor: pointer;
   padding: 12px;
   min-width: 100px;
   border: 0px;
-  transition: background-color 100ms linear;
+    -webkit-transition: background-color 100ms linear;
+    -ms-transition: background-color 100ms linear;
+     transition: background-color 100ms linear;
 }
 
 .btn:focus, .btn.focus {
@@ -314,62 +332,114 @@ h1
 }
 
 .btn-warning {
-  background: #2ecc71;
+  background: #f1c40f;
   color: #ffffff;
 }
 
 .btn-warning:hover {
-  background: #27ae60;
+  background: #f39c12;
   color: #ffffff;
 }
 
-    </style>
+.btn-danger {
+  background: #e74c3c;
+  color: #ffffff;
+}
+
+.btn-danger:hover {
+  background: #c0392b;
+  color: #ffffff;
+}
+.login{
+    font-family: Arvo;
+    border-radius: 15px;
+    height: 30px;
+    width: 70px;
+    border:0px;
+    background-color: #FFFFFF;		
+}
+.login:hover{
+    background:#FFD100;
+    box-shadow: 0px 1px 10px #fff;
+    color: black;
+    transition:0.3s;
+    border-radius: 15px;
+}
+.nav a{
+	padding: 10px;
+	font-size: 16px;
+	color:white;
+}
+.nav a:hover{
+	background:#FFD100;
+	box-shadow: 0px 1px 10px #fff;
+	color: black;
+	transition:0.3s;
+	border-radius: 10px;
+}
+	</style>
 </head>
 <body style="font-family:Arvo; margin:0;">
-    <div class="no-print">
-        <?php include 'navigation.php'; ?>
-    </div>
-
-    <section class="container">
-    <div class="row">
-        <?php foreach ($tickets as $ticket): ?>
-        <article class="card">
-            <section class="date">
-                <time datetime="23th feb">
-                    <?php
-                        $str = explode("-", $ticket['scheduleDate']);
-                        echo "<span>$str[2]</span><span>-$str[1]-$str[0]</span>";
-                    ?>
-                </time>
-            </section>
-            <section class="card-cont">
-                <small><?php echo $ticket['Name'] ?></small>
-                <h3><?php echo $ticket['scheduleFrom']." - " .$ticket['scheduleDestination']." - ".$ticket['scheduleTime'] ?></h3>
-                <div class="even-date">
-                    <i class="fa fa-calendar"></i>
-                    <time>
-                        <span>Seat NO : <?php echo $ticket['Seat']?></span>
-                        <span>Email : <?php echo $ticket['Email']?></span>
-                        <span>Phone : <?php echo $ticket['Phone']?></span>
-                    </time>
-                </div>
-                <div class="even-info">
-                    <i class="fa fa-map-marker"></i>
-                    <p>
-                        Please bring this ticket when departure
-                    </p>
-                </div>
-                <a>TrendBus.com</a>
-            </section>
-        </article>
-        <?php endforeach; ?>
-    </div>
-
-    <div class="no-print" style="text-align: right; margin-right: 25%; display: flex; justify-content: flex-end;">
-        <button onclick="window.location.assign('history.php')" class="btn btn-warning btn-round-2" style="margin-right: 15px;">Back</button>
-        <button onclick="window.print()" class="btn btn-success btn-round-2">Print</button>
-    </div>
-</section>
-
-</body>
-</html>
+	<div class="no-print">
+	<?php include 'navigation.php'; ?>
+		<table style="margin-left: 20px;"><tr style="color: #FFFFFF;">
+      
+			</td>
+		<td width="800px" align='center'>
+			<br>
+	  <!--a style="text-decoration: none;" onclick="window.location.assign('home.php');"><b>Home</b></a>	&nbsp;|&nbsp;-->
+		 <!--a style="text-decoration: none;" onclick="window.location.assign('companylist.php');" target="_blank" ><b>Company List</b></a>&nbsp;|&nbsp;-->
+		 <!--a style="text-decoration: none;" onclick="window.location.assign('contactus.php');" target="_blank" ><b>Contact Us</b></a>&nbsp;|&nbsp;-->
+	
+        </br></br>
+		</td>
+			</tr></table>
+	
+	</div>
+<section class="container">
+<h1></h1>
+  <div class="row">
+    <article class="card fl-left">
+      <section class="date">
+        <time datetime="23th feb">
+		 <?php
+		  $str =  (explode("-",$ticket['scheduleDate']));
+          echo "<span>$str[2]</span><span>-$str[1]-$str[0]</span>";
+			  ?>
+        </time>
+      </section>
+      <section class="card-cont">
+        <small><?php echo $ticket['Name'] ?></small>
+        <h3><?php echo $ticket['scheduleFrom']." - " .$ticket['scheduleDestination']." - ".$ticket['scheduleTime'] ?></h3>
+        <div class="even-date">
+         <i class="fa fa-calendar"></i>
+         <time>
+           <span>Seat NO : <?php echo $ticket['Seat']?></span>
+           <span>Email : <?php echo $ticket['Email']?></span>
+			<span>Phone : <?php echo $ticket['Phone']?></span>
+         </time>
+        </div>
+        <div class="even-info">
+          <i class="fa fa-map-marker"></i>
+          <p>
+            Please bring this ticket when depature
+          </p>
+        </div>
+		 
+        <a>SinBus.com</a>
+      </section>
+    
+  </div>
+	  <div class="row">
+	 <div class="no-print" style="text-align: right; margin-right: 25%">
+	        <button onclick="window.print()" class="btn btn-success btn-round-2">Print</button>   
+        </div>
+		  </div>
+</div> <script type="text/javascript"></script> </div></body></html><script>
+	function login(){
+		window.location.assign('login.php');
+	}
+	function logout(){
+		window.location.assign('logout.php');
+	}
+</script>

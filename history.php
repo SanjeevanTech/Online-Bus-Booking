@@ -151,7 +151,7 @@ $message = $isAdmin ? "Admin Booking's Ticket" : "Customer Booking's Ticket";
 													<td align='center'>$dateH[$x]</td>
 													<td align='center'>
 													<br>
-													<a class='viewbtn' href='view.php?id=$encrptemail'>View</a>
+													<a class='viewbtn' href='view.php?id=$encrptID'>View</a>
 													<br><br>
 													<!--<button class='upbtn'onclick='modal($x)'>Update</button>-->
 													<br><br>
