@@ -108,18 +108,7 @@ $message = $isAdmin ? "Admin Booking's Ticket" : "Customer Booking's Ticket";
 											 
 											$result = $conn->query($query);
 											if($result->num_rows > 0){
-											     $Time = array();
-												 $from = array();
-											     $Destination = array();
-												 $Seat = array();
-												 $price = array();
-												 $date = array();
-												 $id = array(); 
-												 $Name = array(); 
-												 $Phone = array(); 
-												 $Email = array();
-												 $company = array();
-												 $sdate = array();
+											     
 												
 												
 											  while ($row = $result ->fetch_assoc()){
@@ -164,7 +153,7 @@ $message = $isAdmin ? "Admin Booking's Ticket" : "Customer Booking's Ticket";
 													<br>
 													<a class='viewbtn' href='view.php?id=$encrptemail'>View</a>
 													<br><br>
-													<button class='upbtn'onclick='modal($x)'>Update</button>
+													<!--<button class='upbtn'onclick='modal($x)'>Update</button>-->
 													<br><br>
 													<a class='delbtn' href='deleteTicket.php?id=$encrptID'>Delete</a>
 													<br><br>
@@ -219,27 +208,27 @@ $message = $isAdmin ? "Admin Booking's Ticket" : "Customer Booking's Ticket";
 											 ORDER BY ticket_delete.date DESC";
 											 }
 											$result = $conn->query($query);
-											if($result->num_rows > 0){
-											  while ($row = $result ->fetch_assoc()){
-											      $num2++;
-											      extract($row);
-											        echo"
-											        <tr><td colspan='10'><hr></td></tr>
-											        <tr height='80px'>
-													<td align='center'>$num2</td>
-													<td align='center'>$Name</td>
-                                                    <td align='center'>$Email</td>
-                                                    <td align='center'>$Phone</td>
-                                                    <td align='center'>$companyName</td>
-													<td align='center'>$scheduleDate <br> $scheduleTime</td>
-													<td align='center'>$scheduleFrom</td>
-													<td align='center'>$scheduleDestination</td>
-													<td align='center'>$Seat</td>
-													<td align='center'>$price</td>
-													<td align='center'>$date</td>
+											if ($result->num_rows > 0) {
+												while ($row = $result->fetch_assoc()) {
+													$num2++;
+													extract($row); // Extracts keys of $row as variables
+													echo "
+													<tr><td colspan='10'><hr></td></tr>
+													<tr height='80px'>
+														<td align='center'>$num2</td>
+														<td align='center'>$Name</td>
+														<td align='center'>" . $row['emailuser'] . "</td> 
+														<td align='center'>" . $row['Phone'] . "</td> 
+														<td align='center'>$companyName</td>
+														<td align='center'>$scheduleDate <br> $scheduleTime</td>
+														<td align='center'>$scheduleFrom</td>
+														<td align='center'>$scheduleDestination</td>
+														<td align='center'>$Seat</td>
+														<td align='center'>$date</td>
 													</tr>";
-											  }
+												}
 											}
+											
 											?>
 									  </tbody>
 									</table>

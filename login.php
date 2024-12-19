@@ -9,7 +9,7 @@
 
   if (isset($_POST['loginbtn'])) {
     $email = trim($_POST['email']);
-	$password = trim($_POST['password']);
+    $password = trim($_POST['password']);
 
 
     // Query to fetch the user by email
@@ -26,8 +26,8 @@
             echo "<script type='text/javascript'>window.location.assign('home.php');</script>";
         } else {
             // Password is incorrect
-			$password1 = $user['password']; // Assuming $user['password'] is a valid PHP variable
-			echo "<script type='text/javascript'>alert('Email or Password was wrong!');window.location.assign('login.php');</script>";
+            $password1 = $user['password']; // Assuming $user['password'] is a valid PHP variable
+            echo "<script type='text/javascript'>alert('Email or Password was wrong!');window.location.assign('login.php');</script>";
         }
     } else {
         // User not found
@@ -36,111 +36,135 @@
 }
 
 ?>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>Login</title>
-	
-<style>
-	body{
-			background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("assets/bg1.jpg");
+    <meta charset="utf-8">
+    <title>Login</title>
+    <style>
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("assets/bg1.jpg");
             background-size: cover;
             background-position: center;
             margin: 0;
             height: 100vh;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            justify-content: space-between; /* Separate top and middle sections */
-            font-family: Arvo, sans-serif;
-            padding: 20px 0;
-            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
 
-		
-	}
-	#form_wrapper{
-		background: white;
+        #form_wrapper {
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 20px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            width: 90%;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
             max-width: 400px;
-            padding: 30px;
+            padding: 40px;
             text-align: center;
-            box-sizing: border-box;
+            backdrop-filter: blur(15px);
+            animation: fadeIn 1s ease-out;
+        }
 
-	}
-	.input_field{
-		width: 350px;
-		height: 40px;
-		border-radius: 15px;
-		border: 0px;
-		background-color: #E0E0E0;
-		font-size: 16px;
-	}
-	.loginbtn{
-		width: 200px;
-		height: 40px;
-		border-radius: 15px;
-		background-color: #0088ff;
-		color: #FFFFFF;
-		font-weight: bold;
-		border:0;
-		font-size: 18px;
-	}
-	.loginbtn:hover {
-		background-color: #00AB0F;
-	}
-	
+        h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
 
-	.trendbus{
-		color: #FFFFFF;
-		font-family: Arvo;
-	}
-	</style>
+        .input_field {
+            width: 100%; /* Full width */
+            max-width: 350px; /* Set a max width for better centering */
+            height: 45px;
+            border-radius: 25px;
+            border: 1px solid #ccc;
+            background-color: #f7f7f7;
+            font-size: 16px;
+            padding: 0 20px;
+            margin: 0 auto 20px auto; /* Center the input fields */
+            transition: 0.3s ease;
+        }
+
+        .input_field:focus {
+            border-color: #0088ff;
+            background-color: #ffffff;
+            box-shadow: 0 0 5px rgba(0, 136, 255, 0.6);
+            outline: none;
+        }
+
+        .loginbtn {
+            width: 100%;
+            max-width: 350px; /* Set a max width for better centering */
+            height: 45px;
+            border-radius: 25px;
+            background-color: #0088ff;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s ease;
+            margin: 0 auto; /* Center the button */
+        }
+
+        .loginbtn:hover {
+            background-color: #005fbb;
+        }
+
+        p, a {
+            color: #555;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+
+        a {
+            text-decoration: none;
+            font-weight: bold;
+            color: #0088ff;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .forgot-password {
+            text-align: center; /* Center the forgot password text */
+            font-size: 13px;
+            margin-top: 10px;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
+<body>
 
-<body style="font-family:Arvo; margin:0;">
-	
-	
-<br><br>
-	<table align="center" style="font-size:45px"><tr>
-		<th>
-			<img src="assets/trendbus.jpeg" class="imgservice" width="100px" height="100px"/>
-		</th>
-	<th width="30px"></th><th style="color: #C54B8C;">Trendbus Booking</th>
-</tr></table>
-	<br>
-	<div id="form_wrapper" align="center">
-		<form method="post">
- 		<br><br>
-      <h1 align="center">Login</h1><br>
-      <div class="input_container" align="center">
-        <input
-          placeholder=" &nbsp; trendbuswebsite@gamil.com"
-          type="email"
-          name="email"
-          id="email"
-          class="input_field" required
-        />
-		<br><br>
-        <input
-          placeholder=" &nbsp; trendbus123"
-          type="password"
-          name="password"
-          id="password"
-          class="input_field" required
-        />
-      
-		<br><br>
-      <button class="loginbtn" type="submit" name="loginbtn">Login</button>
-      <br><br>
-		<p style="font-size:14px">Forgot <a href=forgotpassword.php style="text-decoration:none; font-size:14px"> Password ?</a></p>
-      <br>
-        <a href="register.php" style="text-decoration:none; font-size:14px">Dont Have Account? </a>
-	</div>
-		</form>
+    <div id="form_wrapper">
+        <form method="post">
+            <h1>Login</h1>
+
+            <input placeholder="Email" type="email" name="email" id="email" class="input_field" required />
+
+            <input placeholder="Password" type="password" name="password" id="password" class="input_field" required />
+
+            <button class="loginbtn" type="submit" name="loginbtn">Login</button>
+
+            <div class="forgot-password">
+                <p>Forgot <a href="forgotpassword.php">Password?</a></p>
+            </div>
+            
+            <p>Don't have an account? <a href="register.php">Sign up</a></p>
+        </form>
     </div>
- <br><br><br>
-	
+
 </body>
 </html>

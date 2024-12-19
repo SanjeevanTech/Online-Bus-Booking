@@ -332,14 +332,14 @@ ORDER BY scheduleDate, scheduleTime;
 
 			<?php
 // Number of rows and seats per row
-$totalRows = 12;
+$totalRows = 6;
 $seatsPerRow = 4;
 
 // Initialize a seat counter
 $seatCounter = 0;
 
 for ($row = 1; $row <= $totalRows; $row++) {
-    // Check if it's the last row (row 13)
+    // Check if it's the last row (row 6)
     if ($row == $totalRows) {
         $seatsInCurrentRow = 4; // Last row has 4 seats (no gap)
     } else {
@@ -400,7 +400,7 @@ for ($row = 1; $row <= $totalRows; $row++) {
   <div style="overflow:auto;">
     <div style="float:right;">
       <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-      <button type="button" id="nextBtn" onclick="nextPrev(1)">san</button>
+      <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
     </div>
   </div>
   <!-- Circles which indicates the steps of the form: -->
@@ -755,7 +755,7 @@ function parseSeatIdToIndex(seatId) {
 					      part.id = 'h'+x;
 						  part.innerHTML = "Seat No : "+name[x];
 						  item.appendChild(part);
-						  //  IMAGE
+						  
 					      part = document.createElement("input");
 						  part.type = "hidden" ;
 						  part.value = name[x];
@@ -763,24 +763,10 @@ function parseSeatIdToIndex(seatId) {
 					      part.id = "Seat"+x;
 						  item.appendChild(part);
 					      
-						  part = document.createElement("input");
-						  part.type = "text" ;
-						  part.placeholder = "Name";
-						  part.name = "Name[]";
-					      part.id = "Name"+x;
-						  item.appendChild(part);
+						  
 
 
-						  //  phone
-						  	part = document.createElement("input");
-            part.type = "text"; // Use "text" for regex validation
-            part.placeholder = "Phone";
-            part.name = "Phone[]";
-            part.id = "Phone" + x;
-            part.setAttribute("pattern", "^(070|071|072|074|075|076|077|078)\\d{7}$"); // Regex pattern
-            part.setAttribute("title", "Please enter a valid phone number starting with 070, 071, 072, 074, 075, 076, 077, or 078 followed by 7 digits.");
-            part.required = true; // Make it required
-            item.appendChild(part);
+					
 			
 
 				   }

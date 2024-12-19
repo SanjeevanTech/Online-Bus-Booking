@@ -49,81 +49,128 @@
 ?>
 
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Update Profile</title>
-  
-  <style>
-    /* Styling for the page */
-    body {
-      background-color: #08ACC6;
-    }
-    #form_wrapper {
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.5);
-      width: 35%;
-      margin-left: 500px;
-      margin-right: 500px;
-      padding: 20px;
-    }
-    .input_field {
-      width: 350px;
-      height: 40px;
-      border-radius: 15px;
-      border: 0px;
-      background-color: #E0E0E0;
-      font-size: 16px;
-      margin-bottom: 15px;
-    }
-    .updatebtn {
-      width: 350px;
-      height: 40px;
-      border-radius: 15px;
-      background-color: #1AEB1D;
-      color: #FFFFFF;
-      font-weight: bold;
-      border: 0;
-      font-size: 18px;
-    }
-    .updatebtn:hover {
-      background-color: #00AB0F;
-    }
-  </style>
+    <meta charset="utf-8">
+    <title>Update Profile</title>
+    
+    <style>
+        /* Styling for the page */
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("assets/bg1.jpg");
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        #form_wrapper {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px; /* Set a max width for better centering */
+            padding: 40px;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            animation: fadeIn 1s ease-out;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .input_field {
+            width: 100%; /* Full width */
+            height: 45px; /* Increased height for better usability */
+            border-radius: 25px;
+            border: 1px solid #ccc;
+            background-color: #f7f7f7;
+            font-size: 16px;
+            margin-bottom: 20px;
+            padding: 0 20px;
+            transition: 0.3s ease;
+            box-sizing: border-box; /* Ensures padding is included in width */
+        }
+
+        .input_field:focus {
+            border-color: #0088ff;
+            background-color: #ffffff;
+            box-shadow: 0 0 5px rgba(0, 136, 255, 0.6);
+            outline: none;
+        }
+
+        .updatebtn {
+            width: 100%;
+            height: 45px;
+            border-radius: 25px;
+            background-color: #0088ff;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .updatebtn:hover {
+          background-color: #005fbb;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 
-<body style="font-family:Arvo; margin:0;">
-  <br><br>
-  <table align="center" style="font-size:45px"><tr><th><img src="assets/trendbus.jpeg" class="imgservice" width="100px" height="100px"/></th><th width="30px"></th><th>trendbus</th></tr></table>
-  <br>
-  <div id="form_wrapper" align="center">
-    <form method="post">
-      <h1 align="center">Update Profile</h1><br>
-      <div class="input_container" align="center">
-        <input
-          placeholder="Enter your name"
-          type="text"
-          name="name"
-          class="input_field"
-          value="<?php echo htmlspecialchars($user['name']); ?>"
-          required
-        />
-        <br><br>
-
-        <input placeholder=" &nbsp; Phone No" type="text" name="phoneno" id="phoneno" class="input_field" 
-        value= "<?php echo htmlspecialchars($user['phoneno']); ?>" required/>
-        <br><br>
-        <input
-          placeholder="Enter new password (leave empty to keep current)"
-          type="password"
-          name="new_password"
-          class="input_field"
-        />
-        <br><br>
-        <button class="updatebtn" type="submit" name="updatebtn">Update</button>
-      </div>
-    </form>
-  </div>
+<body>
+    <div id="form_wrapper">
+        <form method="post">
+            <h1>Update Profile</h1>
+            <input
+                placeholder="Enter your name"
+                type="text"
+                name="name"
+                class="input_field"
+                value="<?php echo htmlspecialchars($user['name']); ?>"
+                required
+            />
+            <input 
+                type="text" 
+                id="phoneno" 
+                name="phoneno" 
+                class="input_field" 
+                placeholder="Phone No" 
+                required 
+                pattern="^(070|071|072|074|075|076|077|078)\d{7}$" 
+                title="Please enter a valid phone number" 
+                value="<?php echo htmlspecialchars($user['phoneno']); ?>"
+            />
+            <input
+                placeholder="Enter new password (leave empty to keep current)"
+                type="password"
+                name="new_password"
+                class="input_field"
+                minlength="8"
+            />
+            <button class="updatebtn" type="submit" name="updatebtn">Update</button>
+        </form>
+    </div>
 </body>
 </html>
+

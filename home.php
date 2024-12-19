@@ -115,25 +115,7 @@ input[type=text], select, input[type=date] {
     color: rgb(150, 250, 250);
     font-size: 18px;
 }
-.login{
-    font-family: Arvo;
-    border-radius: 15px;
-    height: 30px;
-    width: 70px;
-    border: 0px;
-    background-color: #FFFFFF;
-}
-.login:hover{
-    background: #FFD100;
-    box-shadow: 0px 1px 10px #fff;
-    color: black;
-    transition: 0.3s;
-    border-radius: 15px;
-}
-.sinbus{
-    color: #FFFFFF;
-    font-family: Arvo;
-}
+
 </style>
 </head>
 
@@ -158,7 +140,7 @@ if(!(isset($_SESSION['Admin']))){
     $message="Welcome to TrendBus ";
 }
 else{
-    $message = "Welcome to TrendBus Booking  👋 $name 👋 ";
+    $message = "Welcome to Bus Booking  👋 $name  ";
 }
 ?>
 
@@ -172,7 +154,7 @@ else{
     </div>
 </div>
 
-<div><br><br><br>
+<div><br>
     <p align="center" style="font-size: 24px; font-weight: bold;color:white;">Why Book with Us?</p><br>
     <table align="center" width="60%">
         <tr align="center">

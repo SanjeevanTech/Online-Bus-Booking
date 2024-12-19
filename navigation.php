@@ -145,7 +145,7 @@ include("adminusername.php");
     <!-- Logo Section -->
     <div class="logo">
         <img src="assets/trendbus.jpeg" alt="Logo">
-        <span class="logo-title">Trendbus Booking</span>
+        <span class="logo-title">Bus Booking</span>
     </div>
 
     <!-- Navigation Links -->

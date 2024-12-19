@@ -22,7 +22,15 @@
   // Use openssl_decrypt() function to decrypt the data
   $decryption = openssl_decrypt($id, $ciphering, $decryption_key, $options, $decryption_iv);
 
-  $query = "SELECT * FROM `ticket` INNER JOIN `schedule` ON ticket.scheduleID = schedule.scheduleID WHERE ticket.emailuser= '$decryption'";
+  $query = "SELECT * FROM `ticket` 
+          INNER JOIN `schedule` 
+          ON ticket.scheduleID = schedule.scheduleID 
+          WHERE ticket.emailuser = '$decryption' ";
+
+
+
+
+
   $result = $conn->query($query);
 
   // Initialize an empty array for storing tickets

@@ -23,7 +23,7 @@ include("dbconnect.php");
     if (mail($email, $subject, $htmlContent, $headers)) {
         // If email is sent successfully
         echo "<script type='text/javascript'>
-                alert('Booking Sussusfully Conformation is come gmail');
+                alert('The booking confirmation will be sent to your Gmail.');
                 window.location.assign('history.php');  // Redirect to success page
               </script>";
       } else {
