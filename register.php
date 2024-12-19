@@ -1,3 +1,29 @@
+<?php 
+  session_start();
+  error_reporting(0);
+  include("dbconnect.php");
+     if(isset($_SESSION['User'])){
+    echo '<script type="text/javascript">window.location.assign("schedule.php");</script>';
+  }
+	if (isset($_POST['registerbtn'])) {
+
+		$email = $_POST['email'];
+	    $password = $_POST['password'];
+		$name = $_POST['name'];
+		//$phone = $_POST['phone'];
+
+
+		$query ="INSERT INTO `users`(`email`, `name`, `password`) VALUES ('$email','$name','$password')";
+
+		if(mysqli_query($conn, $query))
+		{
+			echo "<script type='text/javascript'>alert('Success');window.location.assign('login.php');</script>'";
+		}else{
+			echo "<script type='text/javascript'>alert('Email has been used! pls try another email!');window.location.assign('register.php');</script>'";
+		}
+	}
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
