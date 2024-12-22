@@ -14,7 +14,7 @@ include("dbconnect.php");
     $from = "sanjeevan2006@yahoo.com";
     $subject = "Your Bus Ticket Details from Bus Booking";
     $htmlContent = "<p>Your ticket has been successfully booked. Please bring this email for verification.<br>
-    ticket is available in Bus Booking wesite.</p>";
+    ticket is available in  bus booking wesite.</p>";
     $headers = "From: $from\r\n";
     $headers .= "Reply-To: $from\r\n";
     $headers .= "MIME-Version: 1.0\r\n";

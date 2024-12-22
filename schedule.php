@@ -330,44 +330,95 @@ ORDER BY scheduleDate, scheduleTime;
 			<div class="container">
 		
 
-			<?php
-// Number of rows and seats per row
-$totalRows = 6;
-$seatsPerRow = 4;
+			  <div class="row2">
+				 <div class="seat" id='seatid0'>
+				    <input type="checkbox"  name="1a" value="1a" id='0' style="opacity:0;"/>
+                  </div>
+				<div class="seat"  id='seatid1'>
+				    <input type="checkbox" name="1b" value="1b" id='1' style="opacity:0;"/>
+                </div>
+				<div class="seat"  id='seatid2'>
+				    <input type="checkbox" name="1c" value="1c" id='2' style="opacity:0;"/>
+                  </div>
+				<div class="seat"  id='seatid3'>
+				    <input type="checkbox" name="1d" value="1d" id='3' style="opacity:0;" />
+                </div>
+			  </div>
 
-// Initialize a seat counter
-$seatCounter = 0;
+			  <div class="row2">
+				<div class="seat"  id='seatid4'>
+				    <input type="checkbox" name="2a" value="2a" id='4' style="opacity:0;" />
+                </div>
+				<div class="seat"  id='seatid5'>
+				    <input type="checkbox" name="2b" value="2b" id='5' style="opacity:0;" />
+                </div>
+				<div class="seat"  id='seatid6'>
+				    <input type="checkbox" name="2c" value="2c" id='6' style="opacity:0;" />
+                  </div>
+				<div class="seat"  id='seatid7'> 
+				    <input type="checkbox" name="2d" value="2d" id='7' style="opacity:0;" />
+                </div>
+			  </div>
 
-for ($row = 1; $row <= $totalRows; $row++) {
-    // Check if it's the last row (row 6)
-    if ($row == $totalRows) {
-        $seatsInCurrentRow = 4; // Last row has 4 seats (no gap)
-    } else {
-        $seatsInCurrentRow = 4; // Other rows have 4 seats (with a gap between pairs)
-    }
+			  <div class="row2">
+				<div class="seat"  id='seatid8'>
+				    <input type="checkbox" name="3a" value="3a" id='8' style="opacity:0;"/>
+                </div>
+				<div class="seat"  id='seatid9'>
+				    <input type="checkbox" name="3b" value='3b' id='9' style="opacity:0;" />
+                </div>
+			    <div class="seat"  id='seatid10'>
+				    <input type="checkbox" name="3c" value="3c" id='10' style="opacity:0;"/>
+                  </div>
+				<div class="seat"  id='seatid11'>
+				    <input type="checkbox" name="3d" value="3d" id='11' style="opacity:0;" />
+                </div>
+			  </div>
 
-    echo '<div class="row2">' . PHP_EOL;
+			  <div class="row2">
+				<div class="seat"  id='seatid12'>
+				    <input type="checkbox" name="4a" value="4a" id='12' style="opacity:0;" />
+                </div>
+				<div class="seat"  id='seatid13'>
+				    <input type="checkbox" name="4b" value="4b" id='13' style="opacity:0;" />
+                </div>
+				<div class="seat"  id='seatid14'>
+				    <input type="checkbox" name="4c" value="4c" id='14' style="opacity:0;" />
+                  </div>
+				<div class="seat"  id='seatid15'>
+				    <input type="checkbox" name="4d" value="4d" id='15' style="opacity:0;" />
+                </div>
+			  </div>
 
-    // Loop through the seats in the current row
-    for ($seat = 0; $seat < $seatsInCurrentRow; $seat++) {
-        $seatID = "seatid" . $seatCounter; // Unique seat ID
-        $name = $row . chr(97 + $seat);    // Generates names like "1a", "1b", etc.
-        $value = $name;                    // Same as the name
-        $id = ++$seatCounter;              // Unique checkbox ID
+			  <div class="row2">
+				<div class="seat"  id='seatid16'>
+				    <input type="checkbox" name="5a" value="5a" id='16' style="opacity:0;" />
+                </div>
+			    <div class="seat"  id='seatid17'>
+				    <input type="checkbox" name="5b" value="5b" id='17' style="opacity:0;" />
+                </div>
+				<div class="seat"  id='seatid18'>
+				    <input type="checkbox" name="5c" value="5c" id='18' style="opacity:0;" />
+                  </div>
+				<div class="seat"  id='seatid19'>
+				    <input type="checkbox" name="5d" value="5d" id='19' style="opacity:0;" />
+                </div>
+			  </div>
 
-        // Output the seat HTML
-        echo <<<HTML
-        <div class="seat" id="$seatID">
-            <input type="checkbox" name="$name" value="$value" id="$id" style="opacity:0;" />
-        </div>
-        HTML;
-
-        
-    }
-
-    echo '</div>' . PHP_EOL;
-}
-?>
+			  <div class="row2">
+				<div class="seat"  id='seatid20'>
+				    <input type="checkbox" name="6a" value="6a" id='20' style="opacity:0;" />
+                </div>
+				<div class="seat"  id='seatid21'>
+				    <input type="checkbox" name="6b" value="6b" id='21' style="opacity:0;" />
+                </div>
+				<div class="seat"  id='seatid22'>
+				    <input type="checkbox" name="6c" value="6c" id='22' style="opacity:0;" />
+                  </div>
+				<div class="seat"  id='seatid23'>
+				    <input type="checkbox" name="6d" value="6d" id='23' style="opacity:0;" />
+                </div>
+			  </div>
 			</div>
 
 			<p class="text" style="text-align: center">

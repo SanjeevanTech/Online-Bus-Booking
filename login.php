@@ -1,41 +1,45 @@
 <?php
-  session_start();
-  error_reporting(0);
-  include("dbconnect.php");
+session_start();
+error_reporting(E_ALL);  // Enable error reporting to help debug (turn off in production)
 
-  if(isset($_SESSION['Admin'])){
+include("dbconnect.php");
+
+if (isset($_SESSION['Admin'])) {
     echo '<script type="text/javascript">window.location.assign("schedule.php");</script>';
-  }
+    exit();
+}
 
-  if (isset($_POST['loginbtn'])) {
+if (isset($_POST['loginbtn'])) {
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
 
-
-    // Query to fetch the user by email
-    $query = "SELECT * FROM users WHERE emailuser = '$email'";
-    $result = $conn->query($query);
+    $query = $conn->prepare("SELECT * FROM users WHERE emailuser = ?");
+    $query->bind_param("s", $email);
+    $query->execute();
+    $result = $query->get_result();
 
     if ($result->num_rows > 0) {
-        $user = $result->fetch_assoc();  // Fetch the user record
+        $user = $result->fetch_assoc();  
         
-        // Verify the password using password_verify
+        
         if (password_verify($password, $user['password'])) {
-            // Password is correct, start session
+       
             $_SESSION['Admin'] = $email;
             echo "<script type='text/javascript'>window.location.assign('home.php');</script>";
+            exit();
         } else {
-            // Password is incorrect
-            $password1 = $user['password']; // Assuming $user['password'] is a valid PHP variable
+          
             echo "<script type='text/javascript'>alert('Email or Password was wrong!');window.location.assign('login.php');</script>";
+            exit();
         }
     } else {
         // User not found
         echo "<script type='text/javascript'>alert('Email or Password was wrong!');window.location.assign('login.php');</script>";
+        exit();
     }
 }
-
 ?>
+
 <!doctype html>
 <html lang="en">
 <head>

@@ -1,28 +1,49 @@
-<?php 
-  session_start();
-  error_reporting(0);
-  include("dbconnect.php");
-     if(isset($_SESSION['User'])){
+<?php
+session_start();
+error_reporting(E_ALL);  
+
+include("dbconnect.php");
+
+if (isset($_SESSION['User'])) {
     echo '<script type="text/javascript">window.location.assign("schedule.php");</script>';
-  }
-	if (isset($_POST['registerbtn'])) {
+    exit();
+}
 
-		$email = $_POST['email'];
-	    $password = $_POST['password'];
-		$name = $_POST['name'];
-		//$phone = $_POST['phone'];
+if (isset($_POST['registerbtn'])) {
+   
+    $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
+    $password = $_POST['password'];
+    $name = trim($_POST['name']);
+    $phone = trim($_POST['phoneno']);
 
+  
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo "<script type='text/javascript'>alert('Invalid email format!');window.location.assign('register.php');</script>";
+        exit();
+    }
 
-		$query ="INSERT INTO `users`(`email`, `name`, `password`) VALUES ('$email','$name','$password')";
+    
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-		if(mysqli_query($conn, $query))
-		{
-			echo "<script type='text/javascript'>alert('Success');window.location.assign('login.php');</script>'";
-		}else{
-			echo "<script type='text/javascript'>alert('Email has been used! pls try another email!');window.location.assign('register.php');</script>'";
-		}
-	}
+   
+    $query = $conn->prepare("INSERT INTO `users`(`emailuser`, `name`, `password`, `phoneno`) VALUES (?, ?, ?, ?)");
+    $query->bind_param("ssss", $email, $name, $hashed_password, $phone);
+
+    if ($query->execute()) {
+        echo "<script type='text/javascript'>alert('Registration successful!');window.location.assign('login.php');</script>";
+    } else {
+        
+        error_log("Registration failed: " . $query->error);
+
+        echo "<script type='text/javascript'>alert('Email has already been used! Please try another email.');window.location.assign('register.php');</script>";
+    }
+
+    
+    $query->close();
+    $conn->close();
+}
 ?>
+
 
 <!doctype html>
 <html lang="en">
@@ -137,7 +158,8 @@
                 required pattern="^(070|071|072|074|075|076|077|078)\d{7}$" 
                 title="Please enter a valid phone number" />
             
-            <input placeholder="Password" type="password" name="password" id="password" class="input_field" required minlength="8" />
+                <input placeholder="Password" type="password" name="password" id="password" class="input_field" required minlength=8 maxlength="15"/>
+
             
             <button class="loginbtn" type="submit" name="registerbtn">Register</button>
             
